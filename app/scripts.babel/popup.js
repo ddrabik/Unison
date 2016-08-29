@@ -14,7 +14,7 @@
 	});
 
 	function songDataMessageListener(request, sender, sendResponse) {
-		if (request.type && request.type === 'SongAdder') {
+		if (request.type && request.type === 'Unison') {
 			chrome.tabs.create({
 				url: encodeURI(`https://soundcloud.com/search?q=${request.title} ${request.artist}`)
 			});

@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "SongAdder",
+    "message": "Unison",
     "description": "The name of the application"
   },
   "appDescription": {
-    "message": "Find currently playing mixcloud song in soundcloud",
+    "message": "Search for the currently playing Mixcloud song on Soundcloud",
     "description": "The description of the application"
   }
 }

@@ -39,7 +39,7 @@ const UnsupportedPageParser = {
 
 	try {
 		const data = parserFactory(hostName).parse();
-		chrome.runtime.sendMessage(Object.assign(data, {type: 'SongAdder'}));
+		chrome.runtime.sendMessage(Object.assign(data, {type: 'Unison'}));
 	} catch (e) {
 		// unsupported page, don't send a message
 	}
