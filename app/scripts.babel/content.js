@@ -12,13 +12,19 @@ const MixCloudParser = {
 
 		const titleElems = player.getElementsByClassName('current-track');
 		if (titleElems.length > 0) {
-			data.title = titleElems[0].innerText;
+			const titleText = titleElems[0].innerText;
+			if (titleText.length > 0) {
+				data.title = titleText;
+			}
 		}
 
 		const artistContainer = player.getElementsByClassName('current-artist');
 		const artistElems = (artistContainer.length) ? artistContainer[0].getElementsByTagName('span') : undefined;
 		if (artistElems.length) {
-			data.artist = artistElems[0].innerText;
+			const artistText = artistElems[0].innerText;
+			if (artistText.length > 0) {
+				data.artist = artistText;
+			}
 		}
 
 		return data;
@@ -39,7 +45,9 @@ const UnsupportedPageParser = {
 
 	try {
 		const data = parserFactory(hostName).parse();
-		chrome.runtime.sendMessage(Object.assign(data, {type: 'Unison'}));
+		if (data.title) {
+			chrome.runtime.sendMessage(Object.assign(data, {type: 'Unison'}));
+		}
 	} catch (e) {
 		// unsupported page, don't send a message
 	}
