@@ -28,7 +28,7 @@ const MixCloudParser = {
 // TODO: extract to different file
 const UnsupportedPageParser = {
 	parse() {
-		return {};
+		throw new Error('Cannot parse, unsupported page.');
 	}
 };
 
@@ -36,8 +36,14 @@ const UnsupportedPageParser = {
 
 (() => {
 	const hostName = parseHost(document.location.hostname);	
-	const data = parserFactory(hostName).parse();
 
+	try {
+		const data = parserFactory(hostName).parse();
+		chrome.runtime.sendMessage(Object.assign(data, {type: 'SongAdder'}));
+	} catch (e) {
+		// unsupported page, don't send a message
+	}
+	
 
 	function parserFactory(hostname) {
 		switch (hostname) {
@@ -57,6 +63,7 @@ const UnsupportedPageParser = {
 			}
 		}
 	}
+
 })();
 
 
